@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
+use function PHPUnit\Framework\throwException;
 
 class AuthController extends Controller
 {
@@ -27,10 +32,23 @@ class AuthController extends Controller
         return redirect()->route('auth.showLogin')->with('success', 'Registration successful. Please log in.');
     }
 
+    public function login(LoginRequest $request){
+        $credentials = $request->validated();
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('home');
+        }
+        
+        throw ValidationException::withMessages([
+            'credentials' => 'Invalid credentials'
+        ]);
+    }
+
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home');
+        return redirect()->route('auth.showLogin');
     }
 }

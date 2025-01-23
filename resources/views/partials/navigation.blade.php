@@ -12,8 +12,16 @@
                 <a href="/goals" class="text-gray-700 hover:text-blue-600">Goals</a>
                 <a href="/activity-log" class="text-gray-700 hover:text-blue-600">Activity Log</a>
                 <a href="/settings" class="text-gray-700 hover:text-blue-600">Settings</a>
-                <a href="{{ route('auth.showLogin') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Login</a>
-                <a href="{{ route('auth.showRegister') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Register</a>
+                @guest
+                    <a href="{{ route('auth.showLogin') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Login</a>
+                    <a href="{{ route('auth.showRegister') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Register</a>
+                @endguest
+                @auth
+                    <form action="{{  route('auth.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Logout</button>
+                    </form>
+                @endauth
             </div>
 
             <!-- Mobile Menu Button -->
@@ -34,8 +42,16 @@
             <a href="/goals" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Goals</a>
             <a href="/activity-log" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Activity Log</a>
             <a href="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
-            <a href="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</a>
-            <a href="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Register</a>
+            @guest
+                <a href="{{ route('auth.showLogin') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</a>
+                <a href="{{ route('auth.showRegister') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Register</a>
+            @endguest
+            @auth
+                <form action="{{  route('auth.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="ml-3 block px-4 py-2 text-white bg-gray-700 hover:bg-blue-600">Logout</button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>
