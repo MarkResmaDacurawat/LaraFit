@@ -6,7 +6,7 @@
         <h1 class="text-[2rem] text-gray-700 mb-4 font-semibold">Start Your Fitness Journey!</h1>
         <form action="{{ route('auth.register') }}" method="POST">
             @csrf
-            <div class="w-full h-full grid grid-cols-2 grid-row-5 gap-4">
+            <div class="w-full h-full flex flex-col md:grid md:grid-cols-2 md:grid-row-5 gap-4">
                 <div class="flex flex-col row-start-1 col-start-1 justify-end">
                     <label for="name" class="text-gray-800 text-md">Name</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}" class="border-2 border-gray-300 rounded-md p-2">

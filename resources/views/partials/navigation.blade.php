@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-200 shadow-md">
+<nav class="w-full fixed top-0 left-0 bg-white border-b border-gray-200 shadow-md">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
@@ -7,16 +7,18 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex gap-6 items-center justify-center">
-                <a href="/dashboard" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-                <a href="/goals" class="text-gray-700 hover:text-blue-600">Goals</a>
-                <a href="/activity-log" class="text-gray-700 hover:text-blue-600">Activity Log</a>
-                <a href="/settings" class="text-gray-700 hover:text-blue-600">Settings</a>
+            <div class="hidden lg:flex gap-6 items-center justify-center">
+                <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
+                <a href="{{ route('goals') }}" class="text-gray-700 hover:text-blue-600">Goals</a>
+                <a href="{{ route('activities.index') }}" class="text-gray-700 hover:text-blue-600">Activity Log</a>
                 @guest
-                    <a href="{{ route('auth.showLogin') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Login</a>
+                    <a href="{{ route('auth.login') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Login</a>
                     <a href="{{ route('auth.showRegister') }}" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Register</a>
                 @endguest
                 @auth
+                    @if(Auth::check())
+                        | <a href="{{ route('profile') }}" class="text-gray-700 hover:text-blue-600">{{ Auth::user()->name }}</a>
+                    @endif
                     <form action="{{  route('auth.logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="text-white bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded-sm">Logout</button>
@@ -25,7 +27,7 @@
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="md:hidden">
+            <div class="lg:hidden">
                 <button id="menu-button" class="text-gray-500 hover:text-gray-800 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -36,14 +38,13 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden">
+    <div id="mobile-menu" class="hidden lg:hidden">
         <div class="space-y-1 bg-gray-50 border-t border-gray-200 py-3">
             <a href="/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
             <a href="/goals" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Goals</a>
             <a href="/activity-log" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Activity Log</a>
-            <a href="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
             @guest
-                <a href="{{ route('auth.showLogin') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</a>
+                <a href="{{ route('auth.login') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</a>
                 <a href="{{ route('auth.showRegister') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Register</a>
             @endguest
             @auth

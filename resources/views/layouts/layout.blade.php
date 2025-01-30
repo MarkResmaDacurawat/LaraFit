@@ -11,7 +11,7 @@
         @include('partials.navigation')
     </header>
 
-    <main class="container mx-auto mt-6 px-4">
+    <main class="container mx-auto mt-[80px] px-4 sm:px-6 lg:px-8">
         @yield('content')
     </main>
 
