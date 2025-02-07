@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreActivityRequest extends FormRequest
+class StoreWorkoutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,14 +19,17 @@ class StoreActivityRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'date' => 'required|date',
-            'activity_type' => 'required|string',
-            'duration' => 'required|integer',
-            'calories_burned' => 'required|numeric',
-            'distance' => 'required|numeric',
+            'exercise_name' => 'required|string|max:255',
+            'sets' => 'required|integer|min:1',
+            'reps' => 'required|integer|min:1',
+            'weight' => 'nullable|numeric|min:0',
+            'rest_period' => 'nullable|integer|min:0',
+            'rpe' => 'nullable|integer|min:1|max:10',
         ];
     }
+    
 }

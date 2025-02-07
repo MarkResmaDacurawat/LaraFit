@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    // Workout Relationship
+    public function workouts(): HasMany {
+        return $this->hasMany(Workout::class);
+    }
+
     // FoodLog Relationship
     public function foodLogs(): HasMany {
         return $this->hasMany(FoodLog::class);

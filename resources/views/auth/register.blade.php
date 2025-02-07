@@ -35,11 +35,11 @@
                     </select>
                 </div>
                 <div class="flex flex-col row-start-2 col-start-2 justify-end">
-                    <label for="height" class="text-gray-800 text-md">Height</label>
+                    <label for="height" class="text-gray-800 text-md">Height (cm)</label>
                     <input type="number" name="height" id="height" value="{{ old('height') }}" step="0.1" class="border-2 border-gray-300 rounded-md p-2">
                 </div>
                 <div class="flex flex-col row-start-3 col-start-2 justify-end">
-                    <label for="weight" class="text-gray-800 text-md">Weight</label>
+                    <label for="weight" class="text-gray-800 text-md">Weight (kg)</label>
                     <input type="number" name="weight" id="weight" value="{{ old('weight') }}" step="0.1" class="border-2 border-gray-300 rounded-md p-2">
                 </div>
                 <div class="flex flex-col row-start-4 col-start-2 justify-end">

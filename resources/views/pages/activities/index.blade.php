@@ -10,6 +10,9 @@
                 <a href="{{ route('activities.create') }}" class="text-blue-600 underline">Add Activity</a>
             </div>
         </div>
+        @if($activities->isEmpty())
+            <h1 class="text-center">No Activities</h1>
+        @endif
         <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
             @foreach($activities as $activity)
                 <x-card title="{{ $activity->activity_type }} Activity">
@@ -21,7 +24,7 @@
                         <p>Activity Type: {{ $activity->activity_type }}</p>
                     </div>
                     {{-- Delete Button --}}
-                    <form action="" method="POST">
+                    <form action="{{ route('activities.destroy', $activity->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-500 hover:text-red-700 mt-4">Delete</button>

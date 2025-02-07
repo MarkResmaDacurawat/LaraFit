@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fitness_goals', function (Blueprint $table) {
+        Schema::create('workouts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->float('target_calories')->nullable();
-            $table->integer('target_active_minutes')->nullable();
-            $table->float('target_weight')->nullable();
+            $table->date('date');
+            $table->string('exercise_name');
+            $table->integer('sets'); 
+            $table->integer('reps'); 
+            $table->float('weight'); 
+            $table->integer('rest_period'); 
+            $table->float('rpe')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fitness_goals');
+        Schema::dropIfExists('workouts');
     }
 };
