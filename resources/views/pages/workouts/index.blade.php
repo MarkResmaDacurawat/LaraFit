@@ -26,10 +26,11 @@
                         <p>RPE: {{ $workout->rpe ?? 'N/A' }}</p>
                     </div>
                     {{-- Delete Button --}}
+                    <a href="{{ route('workouts.edit', $workout->id) }}" class="text-blue-500 hover:text-blue-700 mt-4">Edit</a>
                     <form action="{{ route('workouts.destroy', $workout->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:text-red-700 mt-4">Delete</button>
+                        <button type="submit" class="text-red-500 hover:text-red-700 mt-2">Delete</button>
                     </form>
                 </x-card>
             @endforeach

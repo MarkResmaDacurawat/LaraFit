@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <!-- Form Grid (Two Columns) -->
+            <!-- Form Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Date -->
                 <div class="flex flex-col">

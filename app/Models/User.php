@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(Workout::class);
     }
 
+    // Goal Relationship
+    public function goals(): HasMany {
+        return $this->hasMany(Goal::class);
+    }
+
     // FoodLog Relationship
     public function foodLogs(): HasMany {
         return $this->hasMany(FoodLog::class);

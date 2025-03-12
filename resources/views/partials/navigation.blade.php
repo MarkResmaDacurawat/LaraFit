@@ -14,9 +14,10 @@
                 @endguest
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-                    <a href="{{ route('goals') }}" class="text-gray-700 hover:text-blue-600">Goals</a>
+                    <a href="{{ route('goals.index') }}" class="text-gray-700 hover:text-blue-600">Goals</a>
                     <a href="{{ route('activities.index') }}" class="text-gray-700 hover:text-blue-600">Activities</a>
                     <a href="{{ route('workouts.index') }}" class="text-gray-700 hover:text-blue-600">Workouts</a>
+                    <a href="{{ route('food_logs.index') }}" class="text-gray-700 hover:text-blue-600">Food Logs</a> 
                     @if(Auth::check())
                         | <a href="{{ route('profile') }}" class="text-gray-700 hover:text-blue-600">{{ Auth::user()->name }}</a>
                     @endif
@@ -46,10 +47,11 @@
                 <a href="{{ route('register') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Register</a>
             @endguest
             @auth
-                <a href="/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
-                <a href="{{ route('goals') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Goals</a>
+                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+                <a href="{{ route('goals.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Goals</a>
                 <a href="{{ route('activities.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Activities</a>
                 <a href="{{ route('workouts.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Workouts</a>
+                <a href="{{ route('food_logs.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Food Logs</a>
                 <form action="{{  route('auth.logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="ml-3 block px-4 py-2 text-white bg-gray-700 hover:bg-blue-600">Logout</button>

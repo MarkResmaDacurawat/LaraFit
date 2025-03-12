@@ -24,10 +24,11 @@
                         <p>Activity Type: {{ $activity->activity_type }}</p>
                     </div>
                     {{-- Delete Button --}}
+                    <a href="{{ route('activities.edit', $activity->id) }}" class="text-blue-500 hover:text-blue-700 mt-4">Edit</a>
                     <form action="{{ route('activities.destroy', $activity->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:text-red-700 mt-4">Delete</button>
+                        <button type="submit" class="text-red-500 hover:text-red-700 mt-2">Delete</button>
                     </form>
                 </x-card>
             @endforeach
