@@ -22,60 +22,18 @@
         @method('PUT')
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="flex flex-col">
-                <label for="date" class="text-gray-700 font-medium">Date</label>
-                <input type="date" name="date" id="date" value="{{ $workout->date }}" 
-                    class="input-field" required>
-            </div>
-
-            <div class="flex flex-col">
-                <label for="exercise_name" class="text-gray-700 font-medium">Exercise Name</label>
-                <input type="text" name="exercise_name" id="exercise_name" value="{{ $workout->exercise_name }}" 
-                    class="input-field" required>
-            </div>
-
-            <div class="flex flex-col">
-                <label for="sets" class="text-gray-700 font-medium">Sets</label>
-                <input type="number" name="sets" id="sets" value="{{ $workout->sets }}" 
-                    class="input-field" required>
-            </div>
-
-            <div class="flex flex-col">
-                <label for="reps" class="text-gray-700 font-medium">Reps per Set</label>
-                <input type="number" name="reps" id="reps" value="{{ $workout->reps }}" 
-                    class="input-field" required>
-            </div>
-
-            <div class="flex flex-col">
-                <label for="weight" class="text-gray-700 font-medium">Weight (kg)</label>
-                <input type="number" name="weight" id="weight" value="{{ $workout->weight }}" 
-                    class="input-field" required>
-            </div>
-
-            <div class="flex flex-col">
-                <label for="rest_period" class="text-gray-700 font-medium">Rest Period (seconds)</label>
-                <input type="number" name="rest_period" id="rest_period" value="{{ $workout->rest_period }}" 
-                    class="input-field">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="rpe" class="text-gray-700 font-medium">RPE (1-10)</label>
-                <input type="number" name="rpe" id="rpe" value="{{ $workout->rpe }}" 
-                    class="input-field" min="1" max="10">
-            </div>
+            <x-input label="Date" name="date" type="date" value="{{ $workout->date }}" required />
+            <x-input label="Exercise Name" name="exercise_name" type="text" value="{{ $workout->exercise_name }}" required />
+            <x-input label="Sets" name="sets" type="number" value="{{ $workout->sets }}" required />
+            <x-input label="Reps per Set" name="reps" type="number" value="{{ $workout->reps }}" required />
+            <x-input label="Weight (kg)" name="weight" type="number" value="{{ $workout->weight }}" required />
+            <x-input label="Rest Period (seconds)" name="rest_period" type="number" value="{{ $workout->rest_period }}" />
+            <x-input label="RPE (1-10)" name="rpe" type="number" value="{{ $workout->rpe }}" min="1" max="10" />
         </div>
 
         <div class="flex justify-center mt-6">
-            <button type="submit" class="w-full sm:w-1/2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md transition">
-                Update Workout
-            </button>
+            <x-button text="Update Workout" class="w-full sm:w-1/2" />
         </div>
     </form>
 </div>
-
-<style>
-    .input-field {
-        @apply border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-    }
-</style>
 @endsection

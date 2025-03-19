@@ -17,58 +17,27 @@
         </div>
     @endif
 
-    <form action="{{ route('activities.update', $activity->id) }}" method="POST" class="space-y-4">
+    <form action="{{ route('activities.update', $activity->id) }}" method="POST" class="space-y-6">
         @csrf
         @method('PUT')
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="flex flex-col">
-                <label for="date" class="text-gray-700 font-medium">Date</label>
-                <input type="date" name="date" value="{{ $activity->date }}" required 
-                    class="input-field">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="duration" class="text-gray-700 font-medium">Duration (minutes)</label>
-                <input type="number" name="duration" value="{{ $activity->duration }}" required 
-                    class="input-field">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="calories_burned" class="text-gray-700 font-medium">Calories Burned</label>
-                <input type="number" name="calories_burned" value="{{ $activity->calories_burned }}" 
-                    class="input-field">
-            </div>
-
-            <div class="flex flex-col">
-                <label for="distance" class="text-gray-700 font-medium">Distance (km)</label>
-                <input type="number" name="distance" value="{{ $activity->distance }}" step="0.01" 
-                    class="input-field">
-            </div>
-
-            <div class="flex flex-col sm:col-span-2">
-                <label for="activity_type" class="text-gray-700 font-medium">Activity Type</label>
-                <select name="activity_type" required class="input-field">
-                    <option value="running" {{ $activity->activity_type == 'running' ? 'selected' : '' }}>Running</option>
-                    <option value="walking" {{ $activity->activity_type == 'walking' ? 'selected' : '' }}>Walking</option>
-                    <option value="cycling" {{ $activity->activity_type == 'cycling' ? 'selected' : '' }}>Cycling</option>
-                    <option value="swimming" {{ $activity->activity_type == 'swimming' ? 'selected' : '' }}>Swimming</option>
-                    <option value="gym" {{ $activity->activity_type == 'gym' ? 'selected' : '' }}>Gym Workout</option>
-                </select>
-            </div>
+            <x-input label="Date" name="date" type="date" value="{{ $activity->date }}" required />
+            <x-input label="Duration (minutes)" name="duration" type="number" value="{{ $activity->duration }}" required />
+            <x-input label="Calories Burned" name="calories_burned" type="number" value="{{ $activity->calories_burned }}" />
+            <x-input label="Distance (km)" name="distance" type="number" value="{{ $activity->distance }}" step="0.01" />
+            <x-select label="Activity Type" name="activity_type" required>
+                <option value="running" {{ $activity->activity_type == 'running' ? 'selected' : '' }}>Running</option>
+                <option value="walking" {{ $activity->activity_type == 'walking' ? 'selected' : '' }}>Walking</option>
+                <option value="cycling" {{ $activity->activity_type == 'cycling' ? 'selected' : '' }}>Cycling</option>
+                <option value="swimming" {{ $activity->activity_type == 'swimming' ? 'selected' : '' }}>Swimming</option>
+                <option value="gym" {{ $activity->activity_type == 'gym' ? 'selected' : '' }}>Gym Workout</option>
+            </x-select>
         </div>
 
         <div class="flex justify-center mt-6">
-            <button type="submit" class="w-full sm:w-1/2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md transition">
-                Update Activity
-            </button>
+            <x-button text="Update Activity" class="w-full sm:w-1/2" />
         </div>
     </form>
 </div>
-
-<style>
-    .input-field {
-        @apply border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-    }
-</style>
 @endsection

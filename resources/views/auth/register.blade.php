@@ -1,73 +1,58 @@
 @extends('layouts.layout')
 
 @section('title', 'Register')
+
 @section('content')
-    <div class="pb-4">
-        <h1 class="text-[2rem] text-gray-700 mb-4 font-semibold">Start Your Fitness Journey!</h1>
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">
+        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-6">
+            Start Your Fitness Journey! 🏋️‍♂️
+        </h1>
+
+        @if($errors->any())
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li class="mb-1">⚠️ {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">
+                <p>✅ {{ session('success') }}</p>
+            </div>
+        @endif
+
         <form action="{{ route('auth.register') }}" method="POST">
             @csrf
-            <div class="w-full h-full flex flex-col md:grid md:grid-cols-2 md:grid-row-5 gap-4">
-                <div class="flex flex-col row-start-1 col-start-1 justify-end">
-                    <label for="name" class="text-gray-800 text-md">Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-2 col-start-1 justify-end">
-                    <label for="email" class="text-gray-800 text-md">Email</label>
-                    <input type="text" name="email" id="email" value="{{ old('email') }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-3 col-start-1 justify-end">
-                    <label for="age" class="text-gray-800 text-md">Age</label>
-                    <input type="number" name="age" id="age" value="{{ old('age') }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-4 col-start-1 justify-end">
-                    <label for="password" class="text-gray-800 text-md">Password</label>
-                    <input type="password" name="password" id="password" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-5 col-start-1 justify-end">
-                    <label for="password_confirmation" class="text-gray-800 text-md">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-1 col-start-2 justify-end">
-                    <label for="gender" class="text-gray-800 text-md">Gender</label>
-                    <select name="gender" id="gender" class="border-2 border-gray-300 rounded-md p-2" >
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="flex flex-col row-start-2 col-start-2 justify-end">
-                    <label for="height" class="text-gray-800 text-md">Height (cm)</label>
-                    <input type="number" name="height" id="height" value="{{ old('height') }}" step="0.1" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-3 col-start-2 justify-end">
-                    <label for="weight" class="text-gray-800 text-md">Weight (kg)</label>
-                    <input type="number" name="weight" id="weight" value="{{ old('weight') }}" step="0.1" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col row-start-4 col-start-2 justify-end">
-                    <label for="fitness_goal" class="text-gray-800 text-md">Fitness Goal</label>
-                    <select name="fitness_goal" id="fitness_goal" class="border-2 border-gray-300 rounded-md p-2">
-                        <option value="lose_weight">Lose Weight</option>
-                        <option value="gain_muscle">Gain Muscle</option>
-                        <option value="maintain_weight">Maintain Weight</option>
-                    </select>
-                </div>
-                <div class="flex flex-col row-start-5 col-start-2 items-center justify-end">
-                    <button type="submit" class="w-full text-white bg-gray-700 hover:bg-blue-600 py-2 rounded-md">REGISTER</button>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <x-input label="Full Name" name="name" type="text" value="{{ old('name') }}" required />
+                <x-input label="Email" name="email" type="email" value="{{ old('email') }}" required />
+                <x-input label="Age" name="age" type="number" value="{{ old('age') }}" required />
+                <x-select label="Gender" name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </x-select>
+                <x-input label="Height (cm)" name="height" type="number" value="{{ old('height') }}" step="0.1" required />
+                <x-input label="Weight (kg)" name="weight" type="number" value="{{ old('weight') }}" step="0.1" required />
+                <x-select label="Fitness Goal" name="fitness_goal">
+                    <option value="lose_weight">Lose Weight</option>
+                    <option value="gain_muscle">Gain Muscle</option>
+                    <option value="maintain_weight">Maintain Weight</option>
+                </x-select>
+                <x-input label="Password" name="password" type="password" required />
+                <x-input label="Confirm Password" name="password_confirmation" type="password" required />
             </div>
+
+            <x-button text="REGISTER" class="mt-6" />
         </form>
-        @if($errors->any())
-            <div class="mt-4 p-6 bg-red-400 rounded-sm">
-                @foreach($errors->all() as $error)
-                    <ul>
-                        <li class="text-white mb-2">{{ $error }}</li>
-                    </ul>
-                @endforeach
-            </div>
-        @endif
-        @if(session('success'))
-            <div class="mt-4 p-6 bg-red-400 rounded-sm">
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
+
+        <p class="mt-4 text-center text-gray-600">
+            Already have an account? 
+            <a href="{{ route('login') }}" class="text-blue-600 font-semibold hover:underline">Log In</a>
+        </p>
     </div>
+</div>
 @endsection
