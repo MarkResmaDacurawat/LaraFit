@@ -3,46 +3,23 @@
 @section('title', 'Edit Goal')
 
 @section('content')
-    <div class="pb-4">
-        <h1 class="text-2xl sm:text-3xl text-gray-700 font-semibold text-center">Edit Your Goal</h1>
+    <div class="pb-6">
+        <h1 class="text-3xl font-semibold text-center text-gray-800">Edit Your Goal</h1>
 
-        <form action="{{ route('goals.update', $goal) }}" method="POST" class="mx-auto w-full max-w-[500px] p-4 rounded-lg">
-            @csrf
-            @method('PATCH')
+        <x-form action="{{ route('goals.update', $goal) }}" method="PATCH">
+            <x-select label="Goal Type" name="goal_type">
+                <option value="Weight Loss" {{ $goal->goal_type == 'Weight Loss' ? 'selected' : '' }}>Weight Loss</option>
+                <option value="Muscle Gain" {{ $goal->goal_type == 'Muscle Gain' ? 'selected' : '' }}>Muscle Gain</option>
+                <option value="Endurance" {{ $goal->goal_type == 'Endurance' ? 'selected' : '' }}>Endurance</option>
+                <option value="Strength" {{ $goal->goal_type == 'Strength' ? 'selected' : '' }}>Strength</option>
+            </x-select>
 
-            <div class="flex flex-col">
-                <label for="goal_type" class="text-gray-800 text-md">Goal Type</label>
-                <select name="goal_type" id="goal_type" class="border-2 border-gray-300 rounded-md p-2">
-                    <option value="Weight Loss">Weight Loss</option>
-                    <option value="Muscle Gain">Muscle Gain</option>
-                    <option value="Endurance">Endurance</option>
-                    <option value="Strength">Strength</option>
-                </select>
-            </div>
+            <x-input label="Target Value" type="number" name="target_value" :value="$goal->target_value" required />
+            <x-input label="Unit" type="text" name="unit" :value="$goal->unit" required />
+            <x-input label="Deadline" type="date" name="deadline" :value="$goal->deadline" />
+            <x-textarea label="Notes" name="notes">{{ $goal->notes }}</x-textarea>
 
-            <div class="flex flex-col mt-2">
-                <label for="target_value" class="text-gray-800 text-md">Target Value</label>
-                <input type="number" name="target_value" id="target_value" value="{{ old('target_value', $goal->target_value) }}" class="border-2 border-gray-300 rounded-md p-2">
-            </div>
-
-            <div class="flex flex-col mt-2">
-                <label for="unit" class="text-gray-800 text-md">Unit</label>
-                <input type="text" name="unit" id="unit" value="{{ old('unit', $goal->unit) }}" class="border-2 border-gray-300 rounded-md p-2">
-            </div>
-
-            <div class="flex flex-col mt-2">
-                <label for="deadline" class="text-gray-800 text-md">Deadline</label>
-                <input type="date" name="deadline" id="deadline" value="{{ old('deadline', $goal->deadline) }}" class="border-2 border-gray-300 rounded-md p-2">
-            </div>
-
-            <div class="flex flex-col mt-2">
-                <label for="notes" class="text-gray-800 text-md">Notes</label>
-                <textarea name="notes" id="notes" class="border-2 border-gray-300 rounded-md p-2">{{ old('notes', $goal->notes) }}</textarea>
-            </div>
-
-            <div class="flex justify-center mt-4">
-                <button type="submit" class="text-white bg-gray-700 hover:bg-blue-600 py-2 px-4 rounded-md">Update Goal</button>
-            </div>
-        </form>
+            <x-button text="Update Goal" />
+        </x-form>
     </div>
 @endsection

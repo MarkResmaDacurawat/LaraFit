@@ -3,37 +3,45 @@
 @section('title', 'Workout Logs')
 
 @section('content')
-    <div class="pb-4">
-        <div class="flex justify-between items-center">
-            <h1 class="text-[2rem] text-gray-700 mb-4 font-semibold">Your Workout Logs!</h1>
-            <div>
-                <a href="{{ route('workouts.create') }}" class="text-blue-600 underline">Add Workout</a>
-            </div>
-        </div>
-        @if($workouts->isEmpty())
-            <h1 class="text-center">No Workouts</h1>
-        @endif
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
+<div class="max-w-6xl mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-extrabold text-gray-800">Your Workout Logs</h1>
+        <a href="{{ route('workouts.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+            + Add Workout
+        </a>
+    </div>
+
+    @if($workouts->isEmpty())
+        <p class="text-center text-gray-600 text-lg">No workouts logged yet. Start tracking your progress!</p>
+    @else
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach($workouts as $workout)
-                <x-card title="{{ $workout->exercise_name }} Workout">
-                    <div>
-                        <p>Date: {{ $workout->date }}</p>
-                        <p>Exercise: {{ $workout->exercise_name }}</p>
-                        <p>Sets: {{ $workout->sets }}</p>
-                        <p>Reps per Set: {{ $workout->reps }}</p>
-                        <p>Weight: {{ $workout->weight }} kg</p>
-                        <p>Rest Period: {{ $workout->rest_period }} seconds</p>
-                        <p>RPE: {{ $workout->rpe ?? 'N/A' }}</p>
+                <div class="border-l-4 border-blue-600 bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition">
+                    <h2 class="text-xl font-semibold text-gray-900">{{ $workout->exercise_name }}</h2>
+                    <div class="mt-3 space-y-2 text-gray-700">
+                        <p><strong>Date:</strong> {{ $workout->date }}</p>
+                        <p><strong>Sets:</strong> {{ $workout->sets }}</p>
+                        <p><strong>Reps:</strong> {{ $workout->reps }}</p>
+                        <p><strong>Weight:</strong> {{ $workout->weight }} kg</p>
+                        <p><strong>Rest Period:</strong> {{ $workout->rest_period }} sec</p>
+                        <p><strong>RPE:</strong> {{ $workout->rpe ?? 'N/A' }}</p>
                     </div>
-                    {{-- Delete Button --}}
-                    <a href="{{ route('workouts.edit', $workout->id) }}" class="text-blue-500 hover:text-blue-700 mt-4">Edit</a>
-                    <form action="{{ route('workouts.destroy', $workout->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500 hover:text-red-700 mt-2">Delete</button>
-                    </form>
-                </x-card>
+                    
+                    <div class="flex justify-between items-center mt-4">
+                        <a href="{{ route('workouts.edit', $workout->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Edit
+                        </a>
+                        <form action="{{ route('workouts.destroy', $workout->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
             @endforeach
         </div>
-    </div>
+    @endif
+</div>
 @endsection

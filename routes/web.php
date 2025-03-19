@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodLogController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +19,15 @@ Route::prefix('auth')->middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 });
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});
+
 
 Route::prefix('activities')->middleware('auth')->group(function () {
     Route::get('/', [ActivityController::class, 'index'])->name('activities.index');
@@ -59,7 +64,3 @@ Route::prefix('food_logs')->middleware('auth')->group(function () {
     Route::put('/{id}/update', [FoodLogController::class, 'update'])->name('food_logs.update');
     Route::delete('/{id}/delete', [FoodLogController::class, 'destroy'])->name('food_logs.destroy');
 });
-
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->name('profile');

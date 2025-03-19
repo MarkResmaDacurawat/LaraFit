@@ -3,46 +3,28 @@
 @section('title', 'Edit Food Log')
 
 @section('content')
-    <div class="pb-4">
-        <h1 class="text-2xl sm:text-3xl text-gray-700 font-semibold text-center">Edit Your Food Log</h1>
-        <form action="{{ route('food_logs.update', $foodLog->id) }}" method="POST" class="mx-auto w-full max-w-[600px] p-4 rounded-lg">
-            @csrf
-            @method('PUT')
+<div class="max-w-4xl mx-auto px-6 py-8">
+    <h1 class="text-3xl font-extrabold text-gray-800 text-center mb-6">Edit Your Food Log</h1>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="flex flex-col">
-                    <label for="date" class="text-gray-800 text-md">Date</label>
-                    <input type="date" name="date" id="date" value="{{ $foodLog->date }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="food_name" class="text-gray-800 text-md">Food Name</label>
-                    <input type="text" name="food_name" id="food_name" value="{{ $foodLog->food_name }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="quantity" class="text-gray-800 text-md">Quantity (g)</label>
-                    <input type="number" name="quantity" id="quantity" value="{{ $foodLog->quantity }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="calories" class="text-gray-800 text-md">Calories</label>
-                    <input type="number" name="calories" id="calories" value="{{ $foodLog->calories }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="carbs" class="text-gray-800 text-md">Carbs (g)</label>
-                    <input type="number" name="carbs" id="carbs" value="{{ $foodLog->carbs }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="protein" class="text-gray-800 text-md">Protein (g)</label>
-                    <input type="number" name="protein" id="protein" value="{{ $foodLog->protein }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-                <div class="flex flex-col">
-                    <label for="fats" class="text-gray-800 text-md">Fats (g)</label>
-                    <input type="number" name="fats" id="fats" value="{{ $foodLog->fats }}" class="border-2 border-gray-300 rounded-md p-2">
-                </div>
-            </div>
+    <form action="{{ route('food_logs.update', $foodLog->id) }}" method="POST" class="bg-white shadow-md p-6 rounded-lg border border-gray-200">
+        @csrf
+        @method('PUT')
 
-            <div class="flex justify-center mt-4">
-                <button type="submit" class="w-full text-white bg-gray-700 hover:bg-blue-600 py-2 rounded-md">Update Food Log</button>
-            </div>
-        </form>
-    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <x-input label="Date" name="date" type="date" :value="$foodLog->date" required />
+            <x-input label="Food Name" name="food_name" :value="$foodLog->food_name" required />
+            <x-input label="Quantity (g)" name="quantity" type="number" :value="$foodLog->quantity" required min="1" />
+            <x-input label="Calories" name="calories" type="number" :value="$foodLog->calories" required min="0" />
+            <x-input label="Carbs (g)" name="carbs" type="number" :value="$foodLog->carbs" min="0" />
+            <x-input label="Protein (g)" name="protein" type="number" :value="$foodLog->protein" min="0" />
+            <x-input label="Fats (g)" name="fats" type="number" :value="$foodLog->fats" min="0" />
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+                Update Food Log
+            </button>
+        </div>
+    </form>
+</div>
 @endsection
